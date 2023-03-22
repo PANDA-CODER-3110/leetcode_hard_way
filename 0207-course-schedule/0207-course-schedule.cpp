@@ -18,25 +18,45 @@ public:
         return false ; 
     }
     bool canFinish(int n, vector<vector<int>>& pr) {
-        if(pr.size()==0 ) return true ; 
+        queue<int>q ; 
    vector<int>adj[n+1]; 
-      for(int i = 0;i<pr.size();i++){
-            int u = pr[i][0];
-            int v = pr[i][1];
-            adj[u].push_back(v);
-        }
+      for(int i=0;i<pr.size();i++) adj[pr[i][1]].push_back(pr[i][0]);
         
-        vector<int>pathvis(n+1,0); 
-    vector<int>vis(n+1,0); 
-        for(int i=0 ; i<n;i++)
+        vector<int>d(n+1,0); 
+        // for(int i=0 ; i<n;i++)
+        // {
+        //     if(!vis[i])
+        //     {
+        //         if(solve(adj,vis,i,pathvis)==true )
+        //             return false ; 
+        //     }
+        // }
+        // return true   ; 
+     for(int i=0;i<pr.size();i++)
         {
-            if(!vis[i])
-            {
-                if(solve(adj,vis,i,pathvis)==true )
-                    return false ; 
-            }
+            d[pr[i][0]]++;// calculating indegree
         }
-        return true   ; 
+        for(int i=0;i<n ;i++)
+        {
+            if(d[i]==0) q.push(i); //if indegree==0, push in queue
+        }
+        int cnt =0 ; 
+        while(!q.empty())
+        {
+            int curr = q.front(); 
+            q.pop(); 
+            for(auto it : adj[curr])
+            {
+                d[it]--; 
+                if(d[it]==0)
+                    q.push(it); 
+            }
+            cnt++; 
+            
+        }
+        if(cnt == n) return true ; 
+        else
+            return false ; 
         
     }
 };
