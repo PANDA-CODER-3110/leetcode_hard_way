@@ -41,11 +41,33 @@ public:
     Node* cloneGraph(Node* node) {
         unordered_map<Node*,Node*>mp ; 
         if(node==NULL) return  NULL ; 
-        if(node->neighbors.size()==0)// if only one node is there 
+        // if(node->neighbors.size()==0)// if only one node is there 
+        // {
+        //     Node* clone =new Node(node->val); 
+        //     return clone ; 
+        // }
+        // return dfs (node,mp); 
+        
+        queue<Node*>q; 
+        Node* src = new Node(node->val); 
+        mp[node] = src ; 
+        q.push(node) ; 
+        while(!q.empty())
         {
-            Node* clone =new Node(node->val); 
-            return clone ; 
+            auto fn = q.front(); 
+            q.pop(); 
+            for(auto it : fn->neighbors)
+            {
+                if(mp.find(it)==mp.end())
+                {
+                    Node* ne = new Node(it->val); 
+                    mp[it] = ne ; 
+                    q.push(it); 
+                }
+                mp[fn]->neighbors.push_back(mp[it]);
+            }
         }
-        return dfs (node,mp); 
+        
+        return src ; 
     }
 };
