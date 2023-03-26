@@ -33,8 +33,9 @@ public:
                 // find cycle length
                 while(curr != start){
                  //   if(indeg[curr] == 0) break;
+                     vis[curr] = 1;
                     curr = edges[curr];
-                    vis[curr] = 1;
+                   
                     c++;
                 }
                 ans = max(ans,c+1);   
