@@ -15,7 +15,7 @@ public:
         {
             if(ptr1==NULL)
             {
-                ptr1 = headA; 
+                ptr1 = headB; 
             }
             else
             {
@@ -23,7 +23,7 @@ public:
             }
               if(ptr2==NULL)
             {
-                ptr2 = headB; 
+                ptr2 = headA; 
             }
             else
             {
