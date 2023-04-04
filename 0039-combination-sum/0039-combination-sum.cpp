@@ -2,19 +2,19 @@ class Solution {
 public:
     void solve(vector<int>& c, int t , int s ,vector<int>&ps,vector<vector<int>>&ans, int id  )
     {
-        if(id>=c.size() || t<0)
+        if(id>=c.size() || s>t)
             return ; 
-        if(t==0)
+        if(s==t)
         {
             ans.push_back(ps); 
             return ; 
         }
-        
-            solve(c,t,s,ps,ans,id+1); 
-        ps.push_back(c[id]) ;  
-        solve(c,t-c[id],s,ps,ans,id); 
+        ps.push_back(c[id]) ; 
+        s+=c[id]; 
+        solve(c,t,s,ps,ans,id); 
         ps.pop_back(); 
-    
+        s-=c[id] ; 
+        solve(c,t,s,ps,ans,id+1); 
         
     }
     vector<vector<int>> combinationSum(vector<int>& c, int target) {
