@@ -34,10 +34,8 @@ public:
                         quadruplet[2] = num[front];
                         quadruplet[3] = num[back];
                         res.push_back(quadruplet);
-                    
                         // Processing the duplicates of number 3
                         while (front < back && num[front] == quadruplet[2]) ++front;
-                    
                         // Processing the duplicates of number 4
                         while (front < back && num[back] == quadruplet[3]) --back;
                 
