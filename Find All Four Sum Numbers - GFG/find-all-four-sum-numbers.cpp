@@ -10,61 +10,53 @@ class Solution{
     public:
     // arr[] : int input array of integers
     // k : the quadruple sum required
-    vector<vector<int> > fourSum(vector<int> &num, int target) {
-         vector<vector<int>>res ;         
-        if (num.empty())
-            return res;
-        int n = num.size(); 
-        sort(num.begin(),num.end());
-    
-        for (int i = 0; i < n; i++) {
-        
-           long long  int target_3 = target - num[i];
-        
-            for (int j = i + 1; j < n; j++) {
-            
-                long long int target_2 = target_3 - num[j];
-            
-                int front = j + 1;
-                int back = n - 1;
-            
-                while(front < back) {
-                
-                   long long int two_sum = num[front] + num[back];
-                
-                    if (two_sum < target_2) front++;
-                
-                    else if (two_sum > target_2) back--;
-                
-                    else {
-                    
-                        vector<int> quadruplet(4, 0);
-                        quadruplet[0] = num[i];
-                        quadruplet[1] = num[j];
-                        quadruplet[2] = num[front];
-                        quadruplet[3] = num[back];
-                        res.push_back(quadruplet);
-                    
-                        // Processing the duplicates of number 3
-                        while (front < back && num[front] == quadruplet[2]) ++front;
+    vector<vector<int> > fourSum(vector<int> &nums, int k) {
+       vector<vector<int>>ans  ; 
+        if(nums.empty()) return  ans ; 
+        int n = nums.size( ) ; 
+        sort(begin(nums),end(nums)) ; 
+        for(int i=0 ; i<n;i++)
+        {
+            int target_3 = k - nums[i] ; 
+            for(int j =i+1 ;j<n;j++)
+            {
+                int target2 = target_3 - nums[j]  ; 
+                int start = j+1 ; 
+                int end = n- 1; 
+                while(start<end)
+                {
+                    int sum = nums[start]+nums[end] ; 
+                    if(sum>target2)
+                    end-- ; 
+                    else if(sum<target2)
+                    start++ ; 
+                    else
+                    {
+                        vector<int>res ;
+                         res.push_back(nums[i]) ; 
+                        res.push_back(nums[j]) ;
+                        res.push_back(nums[start]) ;
+                        res.push_back(nums[end]) ;
+                        ans.push_back(res) ; 
+                        int lo = nums[start];
+                        int hi = nums[end];
+                        while (start < end && nums[start] == lo  ) start++;
                     
                         // Processing the duplicates of number 4
-                        while (front < back && num[back] == quadruplet[3]) --back;
-                
+                        while (start < end && nums[end] ==hi ) end --;
+                        
                     }
                 }
-                
-                // Processing the duplicates of number 2
-                while(j + 1 < n && num[j + 1] == num[j]) ++j;
+                  // Processing the duplicates of number 2
+                while(j + 1 < n && nums[j + 1] == nums[j]) ++j;
             }
-        
-            // Processing the duplicates of number 1
-            while (i + 1 < n && num[i + 1] == num[i]) ++i;
-        
+             while (i + 1 < n && nums[i + 1] == nums[i]) ++i;
         }
-    
-        return res;
+        
+        return ans  ; 
+        
     }
+    
 };
 
 //{ Driver Code Starts.
