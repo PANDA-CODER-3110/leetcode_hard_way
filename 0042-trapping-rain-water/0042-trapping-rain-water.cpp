@@ -6,9 +6,9 @@ public:
         int left_max =0 ; 
         int right_max =0 ; 
         
-        while(left<right)
+        while(left<=right)
         {
-            if(height[left]<= height[right])
+            if(height[left]< height[right])
             {
                 if(height[left]>left_max)
                 {
