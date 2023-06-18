@@ -16,11 +16,11 @@ public:
       
     int n = x.size(), m = y.size(); 
          int dp[1001][1001];
-        for(int i=0;i<1001;i++){
-            for(int j=0;j<1001;j++){
-                dp[i][j]=-1;
-            }
-        }
+        // for(int i=0;i<1001;i++){
+        //     for(int j=0;j<1001;j++){
+        //         dp[i][j]=-1;
+        //     }
+        // }
         // return solve(n, m , x, y ,dp); 
         for(int i=0 ; i<=n;i++)
         {
