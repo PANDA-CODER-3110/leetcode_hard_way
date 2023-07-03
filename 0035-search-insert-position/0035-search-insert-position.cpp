@@ -1,17 +1,15 @@
 class Solution {
 public:
-    int searchInsert(vector<int>& arr, int target) {
-        int start = 0 , end = arr.size()-1 ; 
-        while(start<=end)
-        {
-            int mid = start+(end-start)/2 ; 
-            if(arr[mid]==target) return mid ; 
-            if(arr[mid]<target) start = mid +1 ; 
-            else 
-                end = mid -1 ; 
+    int searchInsert(vector<int>& nums, int target) {
+int lo = 0, hi = nums.size(); // we might need to inseart at the end
+    while(lo < hi) { // breaks if lo == hi
+        int mid = lo + floor((hi-lo)/2); // always gives the lower mid
+        if (target > nums[mid]) {
+            lo = mid + 1  ; // no way mid is a valid option
+        } else {
+            hi = mid  ;// it might be possibe to inseart @ mid
         }
-        
-        return end +1 ; 
-        
+    }
+    return lo;
     }
 };
