@@ -11,14 +11,17 @@ class Solution
   public:
     int findOnce(int arr[], int n)
     {
-        int s =0 , e = n-1  ; 
-        while(s<=e)
-        {
-            int m = (s+e)/2 ; 
-            if(arr[m]==arr[m^1]) s= m+1 ; 
-            else e = m-1 ; 
-        }
-        return arr[s] ; 
+      int start =0 , end =n-1 ; 
+      while(start <= end)
+      {
+          int mid = (start+end)/2 ; 
+          if(arr[mid]==arr[mid^1])
+                start = mid+1 ; 
+                else end = mid -1 ; 
+                
+          
+      }
+      return arr[start]  ; 
     }
 };
 
