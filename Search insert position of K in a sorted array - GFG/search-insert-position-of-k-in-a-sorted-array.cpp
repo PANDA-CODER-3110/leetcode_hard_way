@@ -7,18 +7,18 @@ using namespace std;
 
 class Solution{
     public:
-    int searchInsertK(vector<int>arr, int N, int k)
+    int searchInsertK(vector<int>nums, int N, int target)
     {
-        int start = 0 , end = N-1 ; 
-        while(start <= end)
-        {
-            int mid = start + (end - start)/2 ; 
-            if(arr[mid]==k) return mid ; 
-            if(arr[mid]<k) start = mid+1 ; 
-            else end = mid - 1 ; 
+      int lo = 0, hi = nums.size(); // we might need to inseart at the end
+    while(lo < hi) { // breaks if lo == hi
+        int mid = lo + floor((hi-lo)/2); // always gives the lower mid
+        if (target > nums[mid]) {
+            lo = mid + 1  ; // no way mid is a valid option
+        } else {
+            hi = mid  ;// it might be possibe to inseart @ mid
         }
-      if(arr[end]<k) return end+1 ; 
-   
+    }
+    return hi;
     }
 };
 
