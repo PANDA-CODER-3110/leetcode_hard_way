@@ -10,6 +10,6 @@ int lo = 0, hi = nums.size(); // we might need to inseart at the end
             hi = mid  ;// it might be possibe to inseart @ mid
         }
     }
-    return lo;
+    return hi;
     }
 };
