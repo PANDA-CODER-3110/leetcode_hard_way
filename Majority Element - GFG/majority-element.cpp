@@ -15,34 +15,27 @@ class Solution{
     // size: size of input array
     int majorityElement(int a[], int size)
     {
-        
-    int cnt= 1  , mm = a[0] ; 
-    for(int i=1 ; i<size;i++)
-    {
-        if(cnt==0)
-        {
-            cnt++ ; 
-            mm = a[i] ; 
-        }
-        else if(mm ==a[i])
-        {
-            cnt++ ; 
-        }
-        else
-        {
-            cnt -- ; 
-        }
-    }
-    cnt =0 ; 
-   for(int i=0 ; i<size ;i++)
-   {
-       if(a[i]==mm)
-       cnt++ ; 
-   }
-   if(cnt>size/2) return mm ; 
-   else
-   
-   return -1 ; 
+     int cnt =1  , mini = a[0] ; 
+     for(int i=1 ; i<size ;i++)
+     {
+         if(cnt==0)
+         {
+             cnt++  ; 
+             mini = a[i] ; 
+         }
+         else if(a[i]==mini)
+         cnt++ ; 
+         else cnt-- ; 
+         
+     }
+     cnt =0 ; 
+     for(int i=0 ; i<size;i++)
+     {
+         if(a[i]==mini)
+         cnt++ ; 
+         
+     }
+     return (cnt>(size/2))?mini:-1 ; 
     }
 };
 
