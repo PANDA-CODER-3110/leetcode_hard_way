@@ -7,19 +7,26 @@ using namespace std;
 //User function template for C++
 class Solution{
 public:	
-	int matSearch (vector <vector <int>> &mat, int N, int M, int X)
+	int matSearch (vector <vector <int>> &matrix, int N, int M, int target)
 	{
-	    int j = mat[0].size()-1; 
-	    int i=0 ; 
-	    while(i<mat.size() && j>=0 )
-	    {
-	        if(mat[i][j]==X) return true ; 
-	        else if (mat[i][j]>X) j-- ; 
-	        else 
-	        i++ ; 
-	    }
-	    
-	    return false ; 
+	    int j=matrix[0].size()-1;
+        int i=0;
+        while(i<matrix.size() && j>=0)
+        {   
+             {
+            if(matrix[i][j] == target)
+                return true;
+            if(target < matrix[i][j] )
+                --j;
+            else
+                ++i;
+        }
+          
+            
+        }        
+        
+        return false;
+        
 	}
 };
 
