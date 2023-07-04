@@ -12,9 +12,8 @@ public:
     int smallestDivisor(vector<int>& nums, int threshold) {
         int ans = -1;
         
-        int low = 1;
+        int low = 1 ; 
         int high = *max_element(nums.begin(), nums.end());
-        high++;
         
         // Iterate using binary search on all divisors.
         while (low <=  high) {
