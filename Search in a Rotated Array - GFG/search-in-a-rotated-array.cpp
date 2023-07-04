@@ -5,35 +5,31 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    int search(int nums[], int lo, int hi, int target){
-     
-         while(lo<=hi)
-         {  int m  =(lo+hi)/2;
-             if(nums[m]==target)
-             return m;
-           if(nums[lo]<=nums[m])  
-            {
-                if(nums[lo]<=target &&  nums[m]>=target)
-                {
-                    hi = m-1;
-                }
-                else
-                lo = m+1;
-            }
-            else{
-            if(nums[m]<=target && nums[hi]>=target)
-            {
-                lo = m+1;
-
-            }
-            else
-            {
-                hi = m-1;
-            }
-            }
-         }
-   
-        return -1;
+    int search(int A[], int l, int h, int key){
+      while(l<=h)
+      {
+          int m = (l+h)/2; 
+          if(A[m]==key) return m ;  
+          else if(A[l]<=A[m])
+          {
+              if(A[l]<=key && key<=A[m])
+              {
+                  h = m-1 ; 
+              }
+              else
+              l= m+1  ; 
+          }
+          else
+          {
+              if(A[m]<=key && key<=A[h])
+              {
+                  l = m+1 ; 
+              }
+              else
+             h = m-1 ; 
+          }
+      }
+      return - 1; 
     }
 };
 
