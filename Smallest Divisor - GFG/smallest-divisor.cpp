@@ -9,36 +9,27 @@ using namespace std;
 
 class Solution {
   public:
-   int findDivisionSum(vector<int>& nums, int& divisor , int threshold) {
-        long long int result = 0;
-        for (int& num : nums) {
-            result += ceil((1.0 * num) / divisor);
-        }
-        return result<=threshold;
-    }
+  bool can(vector<int>& nums, int K, int mid )
+  {
+      long long int cnt =0 ; 
+      for(auto it : nums)
+      {
+          cnt+=ceil((1.0*it)/mid) ; 
+      }
+      return cnt<=K ; 
+  }
     int smallestDivisor(vector<int>& nums, int K) {
-
-         int low = 1;
-        int high = *max_element(nums.begin(), nums.end());
-        
-        // Iterate using binary search on all divisors.
-        while (low <=  high) {
-            int mid = (low + high) / 2;
-            // If current divisor does not exceed threshold, 
-            // then it can be our answer, but also try smaller divisors
-            // thus change search space to left half.
-            if (findDivisionSum(nums, mid,K)) 
-            {
-                high = mid -1 ; 
-            }
-            // Otherwise, we need a bigger divisor to reduce the result sum
-            // thus change search space to right half.
-            else {
-                low = mid + 1;
-            }
+    int start = 1 , end = *max_element(nums.begin() , nums.end()) ; 
+    while(start<=end)
+    {   int m = (start+end)/2  ;
+        if(can(nums,K,m))
+        {
+            end = m-1 ; 
         }
-        
-        return  low ;
+        else
+        start = m+1 ; 
+    }
+    return start ; 
     }
 };
 
