@@ -5,43 +5,38 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    bool Search(int N, vector<int>& nums, int target) {
-         int left = 0 , right = N-1;
-        while(left<=right)
-        {
-            int m = (left+right)/2;
-            if(nums[m]==target)
-            return true ; 
-            if(nums[left]==nums[m] && nums[right]==nums[m])
-            {
-                left++;
-                right--; 
-            }
-        else if (nums[left]<=nums[m])
-        {
-            if(nums[left]<=target && target<=nums[m])
-            {
-                right=m-1;
-            }
-            else
-            {
-                left=m+1;
-            }
-
-        }
-        else
-        {
-            if(nums[right]>=target && target>=nums[m])
-            {
-                left=m+1;
-            }
-            else
-            {
-                right=m-1;
-            }
-        }
-        }
-        return false ; 
+    bool Search(int N, vector<int>& A, int Key) {
+        int l = 0 , h = A.size() -1 ; 
+        int key = Key ; 
+         while(l<=h)
+      {
+          int m = (l+h)/2; 
+          if(A[m]==key) return true ;  
+          if(A[l]==A[m] && A[h]==A[m])
+          {
+              l++ ; 
+              h-- ; 
+          }
+          else if(A[l]<=A[m])
+          {
+              if(A[l]<=key && key<=A[m])
+              {
+                  h = m-1 ; 
+              }
+              else
+              l= m+1  ; 
+          }
+          else
+          {
+              if(A[m]<=key && key<=A[h])
+              {
+                  l = m+1 ; 
+              }
+              else
+             h = m-1 ; 
+          }
+      }
+      return false ; 
     }
 };
 
