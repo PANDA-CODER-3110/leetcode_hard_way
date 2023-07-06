@@ -40,34 +40,33 @@ class Solution
     public:
     Node* deleteNode(Node *head, int x)
     {
-       Node * cur = head ; 
-       int cnt =0 ; 
-       if(x==1 && cur!=NULL)
-       {
-           head->next->prev = NULL ; 
-           head = head->next  ; 
-         return head; 
-       }
-       
-       while(cur->next!= NULL)
-       {
-           cnt ++ ; 
-           if(cnt==x)
-           {
-               cur->prev->next = cur->next ; 
-               cur->next->prev  = cur->prev ; 
-               break ; 
-           }
-           cur = cur->next ; 
-       }
-       
-       if(cur->next== NULL)
-       {
-           cur->prev->next = NULL ; 
-        }
-       return head ; 
-       
-       
+      Node* curr = head ; 
+      if(x==1 && curr!=NULL)
+            {
+                head->next->prev = NULL ; 
+                head = head->next ; 
+                return head ; 
+            }
+            int cnt =0 ;
+            while(curr->next)
+            {
+                cnt++ ;
+                 if(cnt==x)
+                 {
+                     curr->prev->next = curr->next ; 
+                     curr->next->prev = curr->prev ; 
+                     return head ; 
+                 }
+                 
+                 curr= curr->next ; 
+            }
+            if(curr->next ==NULL)
+            {
+                curr->prev->next = NULL ; 
+            }
+            return head ; 
+            
+        
     }
 };
 
