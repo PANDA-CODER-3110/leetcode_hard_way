@@ -42,29 +42,31 @@ struct Node
 class Solution{
 public:
     Node* divide(int N, Node *head){
-         Node* even=new Node(-1);
-        Node* even_point=even;
-        Node* odd=new Node(-1);
-        Node* odd_point=odd;
-        Node* curr=head;
-        while( curr!=NULL)
-        {
-            if(curr->data%2==0)
-            {
-                Node* e=new Node(curr->data);
-                even_point->next=e;
-                even_point=even_point->next;
-            }
-            else
-            {
-                Node* o=new Node(curr->data);
-                odd_point->next=o;
-                odd_point=odd_point->next;
-            }
-            curr=curr->next;
-        }
-        even_point->next=odd->next;
+        Node* even = new Node(-1) ; 
+        Node* odd = new Node(-1) ; 
+        Node* even_p = even ; 
+        Node* odd_p = odd ; 
+        Node* curr = head ;
+         while(curr)
+         {
+             if(curr->data%2==0)
+             {
+                 Node * e = new Node(curr->data) ; 
+                 even_p->next = e; 
+                 even_p =  even_p->next ;             
+                 
+             }
+             else
+             {
+                  Node * o = new Node(curr->data) ; 
+                 odd_p->next = o; 
+                 odd_p =  odd_p->next ; 
+             }
+             curr = curr->next  ; 
+         }
+          even_p->next = odd->next ; 
         return even->next;
+         
     }
 };
 
