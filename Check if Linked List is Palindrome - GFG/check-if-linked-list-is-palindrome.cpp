@@ -35,25 +35,24 @@ class Solution{
     bool isPalindrome(Node *head)
     {
        //Your code here
-        int res=0;
-        Node*temp = head;
-        while(temp)
-        {
-            res=(res*10 + temp->data);
-            temp=temp->next;
-        }
-        int num=res;
-        int ans=0;
-        while(num!=0)
-        {
-            ans=(ans*10)+num%10;
-            num=num/10;
-        }
-        if(ans==res)
-        return 1;
-        else
-        return 0;
-        
+       Node* r_head= NULL  ; 
+       Node* curr= head; 
+       while(curr)
+       {
+           Node* temp =new Node(curr->data)  ; 
+           temp->next = r_head ; 
+           r_head =temp ; 
+           curr= curr->next ; 
+       }
+       while(head)
+       {
+           if(r_head->data != head->data)
+           return false ; 
+           r_head = r_head->next ; 
+           head = head ->next ; 
+       }
+       
+       return true ; 
     }
 };
 
