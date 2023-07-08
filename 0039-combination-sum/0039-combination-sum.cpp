@@ -1,27 +1,29 @@
 class Solution {
 public:
-    void solve(vector<int>& c, int t , int s ,vector<int>&ps,vector<vector<int>>&ans, int id  )
+  void solve(vector<vector<int>>&ans ,vector<int>&temp ,vector<int> &A, int B , int ind  )
     {
-        if(id>=c.size() || s>t)
-            return ; 
-        if(s==t)
+        if(B==0)
         {
-            ans.push_back(ps); 
-            return ; 
+            ans.push_back(temp) ; 
+            return  ; 
         }
-        ps.push_back(c[id]) ; 
-        s+=c[id]; 
-        solve(c,t,s,ps,ans,id); 
-        ps.pop_back(); 
-        s-=c[id] ; 
-        solve(c,t,s,ps,ans,id+1); 
-        
+        for(int i = ind ; i<A.size();i++)
+        {
+            if(A[i]<=B)
+            {
+                temp.push_back(A[i]) ; 
+                solve(ans , temp ,A , B - A[i], i) ; 
+                temp.pop_back() ; 
+            }
+        }
+        return ; 
     }
-    vector<vector<int>> combinationSum(vector<int>& c, int target) {
-      int sum =0 ; 
-        vector<int>ps;vector<vector<int>>ans; 
-        sort(c.begin(),c.end()); 
-        solve(c , target, 0 , ps , ans , 0 ) ; 
+    vector<vector<int>> combinationSum(vector<int>& A, int B) {
+     vector<vector<int>>ans ; 
+        vector<int>temp ; 
+        sort(A.begin(),A.end()) ; 
+        A.erase(unique(A.begin(),A.end()) , A.end()) ; 
+        solve(ans , temp , A , B , 0  ) ; 
         return ans ; 
         
     }
