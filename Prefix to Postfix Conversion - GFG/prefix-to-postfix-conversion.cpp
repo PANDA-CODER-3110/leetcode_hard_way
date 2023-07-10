@@ -27,9 +27,8 @@ class Solution {
                  st.push(it+b+a) ; 
             }
         }
-        string ans = st.top(); 
-        reverse(ans.begin(),ans.end()) ; 
-        return   ans; 
+        reverse(st.top().begin(),st.top().end()) ; 
+        return   st.top(); 
     }
 };
 
