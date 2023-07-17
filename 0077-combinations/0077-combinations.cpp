@@ -1,27 +1,27 @@
 class Solution {
-void backtracking(int &n, int &k, vector<int>& currentPath, vector<vector<int>> &allPaths, unordered_set<int> &visited) {
-        // base case
-        if(currentPath.size() == k) {
-            allPaths.push_back(currentPath);
+public:
+      void solve(int index, vector<vector<int>>& ans, int n, int k, vector<int>& a)
+    {
+        if(a.size()==k)
+        {
+            ans.push_back(a);
             return;
         }
-
-        // start backtracking
-        for(int i = currentPath.empty() ? 1 : currentPath.back() + 1; i <= n; i++) {
-            if(visited.find(i)!=visited.end()) continue;
-            visited.insert(i);
-            currentPath.push_back(i);
-            backtracking(n, k, currentPath, allPaths, visited);
-            visited.erase(i);
-            currentPath.pop_back();
+        
+        for(int j=index;j<=n;j++)
+        {
+            a.push_back(j);
+            solve(j+1,ans,n,k,a);
+            a.pop_back();
         }
-    } 
-public:
-    vector<vector<int>> combine(int n, int k) {
-        vector<int> currentPath;
-        vector<vector<int>> result;
-        unordered_set<int> visited;
-        backtracking(n, k, currentPath, result, visited);
-        return result;
+    }
+    
+    
+    vector<vector<int>> combine(int n, int k) 
+    {
+        vector<vector<int>> ans;
+        vector<int> a;
+        solve(1,ans,n,k,a);
+        return ans;
     }
 };
