@@ -6,59 +6,43 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
-    bool solve(vector<int>&vis,vector<int> adj[],int node , int par  )
+     bool detect(vector<int>&vis ,vector<int> adj[]  , int node )
     {
-        vis[node] = 1 ; 
-        for(auto it : adj[node])
+        vis[node] =1 ; 
+        queue<pair<int ,int>>q ; 
+        q.push({node ,-1}) ;
+        while(!q.empty())
         {
-            if(!vis[it])
+            int n = q.front().first ; 
+            int parent = q.front().second ; 
+            q.pop() ; 
+            for(auto it : adj[n])
             {
-                if(solve(vis,adj,it,node)) return true ; 
+                if(!vis[it]){
+                    vis[it] = 1 ; 
+                    q.push({it , n}) ; 
+                }
+                else
+                {
+                    if(parent != it )
+                    return true ; 
+                }
             }
-            else if(par!=it)
-            return true ; 
-            
         }
         return false ; 
     }
     bool isCycle(int V, vector<int> adj[]) {
-        vector<int>vis(V+1,0); 
-        // for(int i=0 ; i<V;i++)
-        // {
-        //     if(!vis[i])
-        //     {
-        //         if(solve(vis,adj,i,-1)) return true ; 
-        //     }
-        // }
-        // return false ; 
-        
-        for(int i= 0 ;i<V;i++)
-        {
-            if(!vis[i])
-            {
-                queue<pair<int,int>>q; 
-                q.push({i,-1});
-                while(!q.empty())
-                {
-                    int node = q.front().first;
-                    int par = q.front().second;
-                    q.pop(); 
-                    vis[node] = 1 ; 
-                    for(auto it : adj[node])
-                    {
-                        if(!vis[it])
-                        {
-                            vis[it] = 1 ; 
-                            q.push({it,node});
-                        }
-                        else if(par!=it)
-                        return true ; 
-                    }
-                }
-            }
-        }
-        
-        return false ; 
+        vector<int>vis(V+1 , 0) ; 
+       for(int i=0 ; i<V;i++)
+       {
+           if(!vis[i])
+           {
+               if(detect(vis ,adj , i))
+               return true ; 
+           }
+       }
+       
+       return false ; 
     }
 };
 
