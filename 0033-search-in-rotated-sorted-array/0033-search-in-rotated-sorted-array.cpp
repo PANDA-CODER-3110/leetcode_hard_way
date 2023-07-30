@@ -11,7 +11,7 @@ public:
           {
               if(A[l]<=key && key<=A[m])
               {
-                  h = m-1 ; 
+                  h = m ; 
               }
               else
               l= m+1  ; 
@@ -20,7 +20,7 @@ public:
           {
               if(A[m]<=key && key<=A[h])
               {
-                  l = m+1 ; 
+                  l = m ; 
               }
               else
              h = m-1 ; 
