@@ -20,9 +20,9 @@ protected:
         if(board[i][j] != word[index]) return false; // do not match
         // match!
         board[i][j] = '*'; // change the content, to avoid duplicated search
-        bool furtherSearch =  adjacentSearch(board, word, i+1, j, index+1) || // up
-                              adjacentSearch(board, word, i-1, j, index+1) || // down
-                              adjacentSearch(board, word, i, j-1, index+1) || // left
+        bool furtherSearch =  adjacentSearch(board, word, i+1, j, index+1) + // up
+                              adjacentSearch(board, word, i-1, j, index+1) + // down
+                              adjacentSearch(board, word, i, j-1, index+1) + // left
                               adjacentSearch(board, word, i, j+1, index+1);   // right
         
         board[i][j] = word[index]; // modify it back!
