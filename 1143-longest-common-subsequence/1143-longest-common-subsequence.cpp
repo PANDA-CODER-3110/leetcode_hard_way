@@ -15,7 +15,8 @@ public:
     int longestCommonSubsequence(string x, string y) {
       
     int n = x.size(), m = y.size(); 
-         int dp[1001][1001];
+        vector<int>dp(m+1 , 0)  ; 
+        vector<int>temp(m+1 , 0) ; 
         // for(int i=0;i<1001;i++){
         //     for(int j=0;j<1001;j++){
         //         dp[i][j]=-1;
@@ -27,15 +28,16 @@ public:
             for(int j=0 ; j<=m;j++)
             {
                 if(i==0 || j==0)
-                    dp[i][j] = 0 ; 
+                    dp[j] = 0 ; 
                 else if(x[i-1] == y[j-1])
-                    dp[i][j] = 1+dp[i-1][j-1]; 
+                temp[j] = 1+dp[j-1]; 
                 else
-                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]); 
+                    temp[j] = max(dp[j],temp[j-1]); 
                     
             }
+            dp = temp ; 
         }
-        return dp[n][m]; 
+        return dp[m]; 
         
     }
 };
