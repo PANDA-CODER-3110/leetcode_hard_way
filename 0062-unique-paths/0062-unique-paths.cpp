@@ -5,7 +5,7 @@ public:
     {
         if(i<0 ||  j<0)
         return  0 ; 
-        if(i==a && j==b) return 1 ; 
+        if(i==a || j==b) return 1 ; 
         
         if(dp[i][j]!=-1)
         return dp[i][j] ;
