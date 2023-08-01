@@ -21,14 +21,16 @@ class Solution
     int FindMaxSum(int arr[], int n)
     {
         vector<int>dp(n+2, 0);
-    //  return f(0, arr, n, dp);
+    int prev = 0 , prev2 =0 ; 
    
       for(int i=n-1 ; i>=0;i--){
-          int take = arr[i]+ dp[i+2] ; 
-          int nottake = dp[i+1] ; 
-          dp[i] = max(take , nottake) ; 
+          int take = arr[i]+ prev2  ; 
+          int nottake = prev ; 
+          int curi  = max(take , nottake) ; 
+          prev2 = prev ; 
+          prev = curi ; 
       }
-      return dp[0] ;  
+      return prev  ;  
      
     }
 };
