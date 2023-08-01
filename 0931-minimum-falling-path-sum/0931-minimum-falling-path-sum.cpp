@@ -13,36 +13,37 @@ public:
     int minFallingPathSum(vector<vector<int>>& matrix) {
      m =matrix.size();
         int  n = matrix[0].size();
-        vector<vector<int>>dp(n,vector<int>(m,-1));
+        vector<int>dp(m,0);
         int mini =INT_MAX;
         
         for(int i =0 ; i<n;i++)
-            dp[0][i] = matrix[0][i] ; 
+            dp[i] = matrix[0][i] ; 
         
     for(int i=1 ; i<m;i++)
-    {
+    { vector<int>temp(m,0);
         for(int j=0 ; j<n;j++)
         {
             int left = matrix[i][j] , right = matrix[i][j] , down = matrix[i][j] ; 
             if(j==0)
                left +=1e9 ; 
             else
-                left+=dp[i-1][j-1] ; 
-            down+=dp[i-1][j] ; 
+                left+=dp[j-1] ; 
+            down+=dp[j] ; 
             if(j==n-1)
                 right+=1e9 ; 
             else
-                right+=dp[i-1][j+1] ; 
+                right+=dp[j+1] ; 
             
-            dp[i][j] = min({left , right , down}) ; 
+            temp[j] = min({left , right , down}) ; 
         }
+     dp = temp ; 
     }
         
         for(int i=m-1; i<m;i++)
         {
             for(int j=0 ; j<n;j++)
             {
-                mini = min(mini , dp[i][j]);
+                mini = min(mini , dp[j]);
             }
             cout<<endl;
         }
