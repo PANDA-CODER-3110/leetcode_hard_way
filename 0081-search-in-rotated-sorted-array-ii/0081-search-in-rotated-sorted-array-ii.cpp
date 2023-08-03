@@ -5,7 +5,7 @@ public:
         int key = Key ; 
          while(l<=h)
       {
-          int m = (l+h)/2; 
+          int m = l+(h-l)/2; 
           if(A[m]==key) return true ;  
           if(A[l]==A[m] && A[h]==A[m])
           {
