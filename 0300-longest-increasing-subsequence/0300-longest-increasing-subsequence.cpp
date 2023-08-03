@@ -28,6 +28,6 @@ public:
         
         for(auto it: ans)
             cout<<it<<" " ; 
-         return maxi ; 
+         return ans.size() ; 
     }
 };
