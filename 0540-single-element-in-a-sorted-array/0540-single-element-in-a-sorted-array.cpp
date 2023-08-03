@@ -29,7 +29,7 @@ public:
                 }
                 //right half
                 else{
-                    end = mid ;
+                    end = mid-1 ;
                 }
             }
             return -1;
