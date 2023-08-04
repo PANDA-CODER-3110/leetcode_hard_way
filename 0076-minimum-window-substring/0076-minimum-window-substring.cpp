@@ -1,30 +1,37 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        if(s.size() < t.size()){
-            return "";
+       if(t.length() > s.length()) return "";
+        if(s == t) return s;
+        
+        int i=0, j =0, minLen =INT_MAX, start =-1, cnt =0;
+        
+        vector<int> mpp(256,0);
+        for(auto ch: t){ 
+            if(mpp[ch-'A'] == 0) cnt++;
+            mpp[ch-'A']++;
         }
-        unordered_map<char,int> map;
-        for(int i=0;i<t.size();i++){
-            map[t[i]]++;
-        }
-        int count=0,start=0,min_length = INT_MAX, min_start = 0;
-        for(int end=0; end<s.size(); end++){
-            if(map[s[end]]>0){
-                count++;
-            }
-            map[s[end]]--; 
-            if(count == t.length()) { 
-                while(start < end && map[s[start]] < 0){
-                    map[s[start]]++, start++;
-                } 
-                if(min_length > end-start){
-                    min_length = end-(min_start=start)+1; 
+
+        while(j<s.length()){
+            mpp[s[j] -'A']--;
+            if(mpp[s[j] -'A'] == 0) cnt--;
+
+            if(cnt == 0){       
+                while(cnt == 0){
+                    if(j-i+1 < minLen){                     
+                        start= i;
+                        minLen= j-i+1;
+                    }
+                    mpp[s[i]-'A']++;
+                    if(mpp[s[i] -'A'] == 1) cnt++;
+                    i++;
                 }
-                map[s[start++]]++; 
-                count--;
             }
+            j++;
         }
-        return min_length == INT_MAX ? "" : s.substr(min_start, min_length);
+
+        if(minLen == INT_MAX) return "";
+        else return s.substr(start,minLen);
     }
+    
 };
