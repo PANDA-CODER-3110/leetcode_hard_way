@@ -12,17 +12,20 @@
 class Solution {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        int index =0  ; 
-        return build(preorder,inorder,index,0,inorder.size()-1);
+        int ind =0 ; 
+        return build(preorder, inorder , ind , 0 , preorder.size()-1) ; 
+        
     }
-    TreeNode*build(vector<int>& preorder, vector<int>& inorder,int& ind,int left , int right){
-        if(left>right) return NULL;
+    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int&ind , int left , int right){
+        if(left>right )return NULL ; 
         int pivot = left ; 
-        while(inorder[pivot] != preorder[ind]) pivot++;
-        ind++;
-        TreeNode* newNode = new TreeNode(inorder[pivot]); 
-        newNode->left = build(preorder,inorder,ind,left,pivot-1); 
-          newNode->right = build(preorder,inorder,ind,pivot+1,right); 
-        return newNode; 
+        while(inorder[pivot]!=preorder[ind])pivot++ ; 
+        ind++ ; 
+        TreeNode* node = new TreeNode(inorder[pivot]) ; 
+        node->left = build(preorder , inorder , ind , left , pivot-1) ; 
+        node->right = build(preorder , inorder , ind , pivot+1 , right) ; 
+        return node ; 
     }
+        
+    
 };
