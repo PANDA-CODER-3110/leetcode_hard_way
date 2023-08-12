@@ -7,37 +7,39 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	void dolve(vector<int>&vis,stack<int>&st,int idx ,vector<int> adj[] )
+	void dfs(int n , int idx  , vector<int> adj[] , stack<int>&st ,vector<int>&vis  )
 	{
 	    vis[idx] = 1; 
 	    for(auto it : adj[idx])
 	    {
 	        if(!vis[it])
 	        {
-	            dolve(vis,st,it,adj); 
+	            dfs(n , it , adj , st , vis ) ; 
 	        }
 	    }
-	    st.push(idx); 
+	    st.push(idx) ; 
 	}
 	vector<int> topoSort(int n, vector<int> adj[]) 
 	{
-	    vector<int>vis(n+1,0); 
-	    vector<int>ans; 
-	    stack<int>st; 
-	    for(int i=0 ; i<n;i++)
-	    {
-	        if(!vis[i])
-	        {
-	            dolve(vis,st,i,adj); 
-	        }
-	    }
-	    while(!st.empty())
-	    {
-	        ans.push_back(st.top()); 
-	        st.pop(); 
-	    }
-	    return ans ; 
-	    
+	   vector<int>ans ; 
+	   stack<int>st ; 
+	   vector<int>vis(n ,0) ; 
+	   for(int i =0 ; i<n;i++)
+	   {
+	       if(!vis[i])
+	       {
+	           dfs(n , i , adj , st, vis) ; 
+	       }
+	   }
+	   
+	   while(!st.empty())
+	   {
+	       ans.push_back(st.top()) ; 
+	       st.pop() ; 
+	   }
+	   
+	   return ans ; 
+	   
 	}
 };
 
