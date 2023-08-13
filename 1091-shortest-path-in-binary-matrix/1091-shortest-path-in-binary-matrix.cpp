@@ -1,65 +1,70 @@
-typedef pair<int,pair<int,int>> pi;
 class Solution {
 public:
-    int dx[8]={0,1,-1,0,1,-1,-1,1};
-    int dy[8]={1,0,0,-1,1,-1,1,-1};
-    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-//         int res = 1;
-// int row = grid.size();
-// if (row == 0) return -1;
-// int col = grid[0].size();
-// if (col == 0 ) return -1;
-// if (grid[0][0] != 0 | grid[row-1][col-1] != 0) return -1;
-
-//     queue<pair<int, int>> queue;
-//     queue.push(make_pair(0,0));
-//     vector<vector<int>> directions = {{1,1}, {0,1},{1,0},{0,-1},{-1,0},{-1, -1},{1, -1},{-1, 1}};
-//     grid[0][0] = 1;
-//     while(!queue.empty()){
-//         auto curr = queue.front();
-//         int x = curr.first, y = curr.second;
-//         if( x == row -1 && y == col -1) return grid[x][y];
+    bool isPossible(int row, int col, int n, vector<vector<int>>& grid, int distance, vector<vector<int>> &dist)
+    {
+        // checking that is it possible to go to new x-cordinate(row) &  y-cordinate(col) and new distance is less than previous distance 
+        if(row >= 0 && row < n && col >= 0 && col < n && grid[row][col] == 0 && distance + 1 < dist[row][col]) 
+            return true;
         
-//         for(auto direction : directions){
-//             int nx = x + direction[0];
-//             int ny = y + direction[1];
-//             if(nx >= 0 && nx < row && ny >= 0 && ny < col && grid[nx][ny] == 0){
-//                 queue.push(make_pair(nx,ny));
-//                 grid[nx][ny] = grid[x][y] + 1;
-//             }
-//         }
-//         queue.pop();
-//     }
-//     return -1;
-         int n=grid.size();
-        vector<vector<int>> dist(n,vector<int>(n,1e9));
-        if(grid[0][0]==1 or grid[n-1][n-1]==1)
+        return false;
+    }
+    
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) 
+    {
+        // if starting point is 1 then it means that it is not possible to movie forwart in any direction
+        if(grid[0][0] == 1)  
             return -1;
-        priority_queue<pi,vector<pi>,greater<pi>> pq;
-        pq.push({1,{0,0}});
-        dist[0][0]=1;
-        while(!pq.empty())
+        
+        // given that grid is N x N
+        int n = grid.size();
+        
+        // set is used to eliminate unnecessary iterations {distance {x-cordinate, y-cordinate}}
+        set<pair<int, pair<int, int>>> s;
+        
+        // 2-D vector for storing distance of each cordinate initally having infinite distance
+        vector<vector<int>> dist(n, vector<int>(n, INT_MAX)); 
+        
+        dist[0][0] = 1;
+        s.insert({1, {0, 0}});
+        
+        // for generating 8 directions at each coordinate (left, right, up, down, diagonally)
+        int delRow[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int delCol[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+        
+        while(!s.empty())
         {
-            int cnt=pq.top().first;
-            int x=pq.top().second.first;
-            int y=pq.top().second.second;
-            pq.pop();
-            for(int k=0;k<=7;k++)
+            auto it = *(s.begin());
+            int distance = it.first;
+            int r = it.second.first;
+            int c = it.second.second;
+            s.erase(it);
+            
+            for(int i=0; i<8; i++)
             {
-                int newx=x+dx[k];
-                int newy=y+dy[k];
-                if(newx<0 or newy<0 or newx>=n or newy>=n or grid[newx][newy]==1)
-                    continue;
-                if(dist[newx][newy]>1+cnt)
+                // moving in each direction (left, right, up, down, diagonally)
+                int row = r + delRow[i];
+                int col = c + delCol[i];
+                
+                // checking if it is clear path or not and new distance is less than previous distance
+                if(isPossible(row, col, n, grid, distance, dist)) 
                 {
-                    dist[newx][newy]=1+cnt;
-                    pq.push({dist[newx][newy],{newx,newy}});
+                    
+                    // if set contains distance for row, col remove it from set
+                    if(dist[row][col] != INT_MAX) 
+                        s.erase({distance, {row, col}});
+                    
+                    dist[row][col] = distance + 1;
+                    
+                    // insert new shortest distance
+                    s.insert({distance + 1, {row, col}}); 
                 }
             }
         }
-        if(dist[n-1][n-1]==1e9)
-            return -1;
-        return dist[n-1][n-1];
         
+        // if last [n-1][n-1] position is still infinity it means there is no  clear path so we return -1
+        if(dist[n-1][n-1] == INT_MAX) 
+            return -1;
+        
+        return dist[n-1][n-1]; 
     }
 };
