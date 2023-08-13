@@ -8,33 +8,32 @@ class Solution
 	public:
 	//Function to find the shortest distance of all the vertices
     //from the source vertex S.
-    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
+    vector<int>dijkstra(int V, vector<vector<int>> adj[], int S)
     {
-       set<pair<int,int>>st ; 
-        vector<int>dist(V, 1e9) ; 
+       set<pair<int , int>>st ; 
+        vector<int>dist(V,1e9) ; 
         dist[S] =0 ; 
-        st.insert({S,0}) ; 
+        st.insert({S , 0}) ; 
         while(!st.empty())
         {
-            auto it = *st.begin() ; 
-            int node = it.first ; 
-            int dis = it.second ; 
-            st.erase(it) ; 
-            for(auto it : adj[node])
-            {
-                int wt = it[1] ; 
-                int ednode = it[0] ; 
-                if(dis+wt<dist[ednode])
-                {
-                    if(dist[ednode]!=1e9)
-                    st.erase({ednode , dist[ednode]}) ; 
-                    dist[ednode] = dis+wt ; 
-                    st.insert({ednode , dist[ednode]}) ; 
-                }
-            }
-         }
-         
-         return dist ; 
+          auto it  = (*st.begin()) ; 
+          int node = it .first ; 
+          int dis = it.second ; 
+          st.erase(it) ; 
+           for(auto it : adj[node])
+           {
+               int adjnode = it[0] ; 
+               int edwt = it[1] ; 
+               if(dist[node]+edwt<dist[it[0]])
+               {
+                   if(dist[it[0]]!=1e9)
+                   st.erase({adjnode ,dist[adjnode]}) ; 
+                   dist[it[0]] = dist[node]+edwt ; 
+                   st.insert({adjnode , dist[it[0]]}) ; 
+               }
+           }
+        }
+        return dist ; 
     }
 };
 
