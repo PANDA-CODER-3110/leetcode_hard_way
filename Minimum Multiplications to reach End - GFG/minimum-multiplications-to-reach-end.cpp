@@ -11,17 +11,18 @@ using namespace std;
 class Solution {
   public:
     int minimumMultiplications(vector<int>& arr, int start, int end) {
-       priority_queue<pair<int , int> , vector<pair<int , int>>, greater<pair<int , int>>>q ; 
-        q.push({0 , start}) ; 
+       set<pair<int , int>>st ; 
+        st.insert({0 , start}) ; 
         vector<int>dist(100000 , 1e9) ; 
         dist[start] = 0 ; 
         int mod = 100000 ; 
         if(start == end)  return 0 ; 
-        while(!q.empty())
+        while(st.size())
         {
-            int node = q.top().second ; 
-            int steps = q.top().first ; 
-            q.pop() ;
+            auto pl = (*st.begin()) ; 
+            int node = pl.second ; 
+            int steps = pl.first ; 
+           st.erase(pl) ; 
              if(node == end)
                     return dist[node]  ; 
             for(auto it : arr)
@@ -29,8 +30,9 @@ class Solution {
                 int num = (it*node)%mod ; 
                 if(steps+1<dist[num])
                 {
+                    st.erase({dist[num]  , num}) ; 
                     dist[num] = steps+1 ; 
-                    q.push({ dist[num] , num }) ; 
+                  st.insert({ dist[num] , num }) ; 
                    
                 }
             }
