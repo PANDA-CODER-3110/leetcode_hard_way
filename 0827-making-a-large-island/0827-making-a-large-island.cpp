@@ -1,46 +1,43 @@
 class dis
 {
-
-public:
-    
-    vector<int> par, size, rank;
-    dis(int n)
+    public:
+    vector<int>par , size  ; 
+    dis(int n )
     {
-        rank.resize(n + 1, 0);
-        size.resize(n + 1, 0);
-        par.resize(n + 1, 0);
-        for (int i = 0; i <= n; i++)
+        par.resize(n , 0) ;
+        size.resize(n, 0) ; 
+        for(int i =0 ; i<n  ;i++)
         {
-            par[i] = i;
-            size[i] = 1;
+            par[i]  = i ; 
+            size[i] = 1; 
         }
-    }
-
-    int find(int node)
-    {
-        if (node == par[node])
-            return node;
-        return par[node] = find(par[node]);
+        
     }
     
-    void unionbysize(int u, int v)
+    int find(int u )
     {
-        int ulp_u = find(u);
-        int ulp_v = find(v);
-        if (ulp_u == ulp_v)
-            return;
-        if (size[ulp_u] < size[ulp_v])
+        if(par[u]==u)
+            return  u ; 
+        return par[u] = find(par[u]) ; 
+    }
+    void unionbysize(int u , int v )
+    {
+        int uu = find(u) ; 
+        int uv = find(v) ; 
+        if(uu==uv)
+            return ; 
+        if(size[uu]<size[uv])
         {
-            par[ulp_u] = ulp_v;
-            size[ulp_v] += size[ulp_u];
+            size[uv]+=size[uu] ; 
+            par[uu] = uv ; 
         }
         else
         {
-            par[ulp_v] = ulp_u;
-            size[ulp_u] += size[ulp_v];
+             size[uu]+=size[uv] ; 
+            par[uv] = uu ; 
         }
     }
-};
+}; 
 class Solution {
 public:
     int dir[5] = {-1 , 0, 1,0,-1}  ; 
