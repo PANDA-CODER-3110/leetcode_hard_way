@@ -8,7 +8,9 @@ public:
         
         priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int , int>>>,greater<pair<int , pair<int,int>>>>pq ; 
         time[0][0] = grid[0][0] ; 
-        pq.push({time[0][0],{0 , 0}});     
+        pq.push({time[0][0],{0 , 0}}); 
+        int maxi =time[0][0] ; 
+        
         while(!pq.empty())
         {
             int tim = pq.top().first ; 
@@ -26,7 +28,7 @@ public:
                     if(time[nrow][ncol]>maxi)
                     {
                         time[nrow][ncol] = maxi ; 
-                        pq.push({time[nrow][ncol] ,{nrow , ncol}} ) ; 
+                        pq.push({maxi ,{nrow , ncol}} ) ; 
                     }
                 }
             }
