@@ -1,37 +1,52 @@
 class Solution {
 public:
-   void _merge(vector<int>& nums, int low, int mid, int high, int &reversePairCount) {
-    int leftInd = low, rightInd = mid+1, r = rightInd, temp[high-low+1], tempInd = 0, counter = 0;
-    // 4 6 8,  1 2 3
-    while(leftInd<=mid) {
-        while( r<=high && (nums[leftInd] > (long)2*nums[r]) ) counter++, r++;
-        reversePairCount+= counter;
-        while( rightInd<=high && nums[rightInd]<=nums[leftInd] ) {
-            temp[tempInd++] = nums[rightInd++];
+    int ans = 0;
+    void merge(vector<int>&a,int low ,int mid,int high){
+        int  i = low;
+        int  j = mid+1;
+        while(i<=mid&&j<=high){
+            if((long long)a[i]>(long long)2*a[j]){
+                ans+=mid-i+1;
+                j++;
+            }
+            else{
+                i++;
+            }
         }
-        temp[tempInd++] = nums[leftInd++];
-    }
-    while(rightInd<=high) {
-        temp[tempInd++] = nums[rightInd++];
-    }
-    for(int i=0; i<tempInd; i++) nums[low++] = temp[i];
-}
+        i = low , j = mid+1;
+        vector<int> b;
+        while(i<=mid&&j<=high){
+            if(a[i]<a[j]){
+                b.push_back(a[i++]);
+            }
+            else{
+                b.push_back(a[j++]);
+            }
+        }
+        while(i<=mid){
+            b.push_back(a[i++]);
+        }
+        while(j<=high){
+            b.push_back(a[j++]);
+        }
 
-void _mergeSort(vector<int>& nums, int low, int high, int &reversePairCount) {
-    if(low < high) {
-        int mid = low + (high-low)/2;
-        _mergeSort(nums, low, mid, reversePairCount);
-        _mergeSort(nums, mid+1, high, reversePairCount);
-        _merge(nums, low, mid, high, reversePairCount);
+        for(int i = low;i<=high;i++){
+            a[i]=b[i-low];
+        }
+
     }
-}
+    void mergesort(vector<int>& a,int low,int high){
+        if(low==high)return;
+        int mid = (low+high)/2;
 
-int reversePairs(vector<int>& nums) {
-    int reversePairCount = 0;
-    int sz = nums.size();
-    if(sz<=1) return reversePairCount;
-    _mergeSort(nums, 0, sz-1, reversePairCount);
-    return reversePairCount;
-}
+        mergesort(a,low,mid);
+        mergesort(a,mid+1,high);
 
+        merge(a,low,mid,high);
+    }
+    int reversePairs(vector<int>& nums) {
+        mergesort(nums,0,nums.size()-1);
+        return ans;
+
+    }
 };
