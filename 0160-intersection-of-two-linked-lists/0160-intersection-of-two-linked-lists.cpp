@@ -17,17 +17,14 @@ public:
             {
                 ptr1 = headB; 
             }
-            else
-            {
-                ptr1=ptr1->next ; 
-            }
-              if(ptr2==NULL)
+              else if(ptr2==NULL)
             {
                 ptr2 = headA; 
             }
             else
             {
                 ptr2=ptr2->next ; 
+                 ptr1=ptr1->next ; 
             }
             
         }
