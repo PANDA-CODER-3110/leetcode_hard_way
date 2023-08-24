@@ -2,21 +2,21 @@ class Solution {
 public:
   void solve(vector<vector<int>>&ans ,vector<int>&temp ,vector<int> &A, int B , int ind  )
     {
-        if(B==0)
+        if(ind==A.size())
         {
+            if(B==0)
             ans.push_back(temp) ; 
             return  ; 
         }
-        for(int i = ind ; i<A.size();i++)
-        {
-            if(A[i]<=B)
+       
+            if(A[ind]<=B)
             {
-                temp.push_back(A[i]) ; 
-                solve(ans , temp ,A , B - A[i], i) ; 
+                temp.push_back(A[ind]) ; 
+                solve(ans , temp ,A , B - A[ind], ind) ; 
                 temp.pop_back() ; 
             }
-        }
-        return ; 
+      
+       solve(ans , temp , A , B , ind+1 ) ; 
     }
     vector<vector<int>> combinationSum(vector<int>& A, int B) {
      vector<vector<int>>ans ; 
