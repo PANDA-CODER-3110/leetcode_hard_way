@@ -1,30 +1,31 @@
- class Solution {
-         void solve(vector<vector<int>>&ans ,vector<int>&temp ,vector<int> &A, int B , int ind  )
-    {
-        if(B==0)
-        {
-            ans.push_back(temp) ; 
-            return  ; 
-        }
-        for(int i = ind ; i<A.size();i++)
-        {
-            if(i>ind && A[i]==A[i-1])
-            continue ; 
-            if(A[i]<=B)
-            {
-                temp.push_back(A[i]) ; 
-                solve(ans , temp ,A , B - A[i], i+1) ; 
-                temp.pop_back() ; 
-            }
-        }
-        return ; 
-    }
+class Solution {
 public:
-    vector<vector<int>> combinationSum2(vector<int>&A, int B) {
-          vector<vector<int>>ans ; 
-        vector<int>temp ; 
-        sort(A.begin(),A.end()) ; 
-        solve(ans , temp , A , B , 0  ) ; 
-        return ans ; 
+    vector<vector<int>> ans;
+    void combi(vector<int>& c, int idx, int t,vector<int> &v){
+        if(t==0){
+            ans.push_back(v);
+            return;
+        }
+        if(idx==c.size()) return;
+
+        if(c[idx]<=t){
+          //we can pick
+            v.push_back(c[idx]);
+            combi(c,idx+1, t-c[idx],v);
+            v.pop_back();  
+        }
+        
+        int j=idx+1;
+        while(j<c.size() and c[j]==c[j-1] ) j++;
+        //we dont pick
+        combi(c,j,t,v);
+
+    }
+    vector<vector<int>> combinationSum2(vector<int>& c, int target) {
+        ans.clear();
+        sort(c.begin(),c.end());//for sorted order output
+        vector<int> v;
+        combi(c,0,target,v);
+        return ans;
     }
 };
