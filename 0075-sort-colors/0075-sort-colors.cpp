@@ -12,7 +12,8 @@ public:
             }
             else if(A[i]==2)
             {
-                swap(A[i--] , A[k]) ; 
+                swap(A[i] , A[k]) ; 
+                i-- ; 
                 k-- ; 
             } 
         }
