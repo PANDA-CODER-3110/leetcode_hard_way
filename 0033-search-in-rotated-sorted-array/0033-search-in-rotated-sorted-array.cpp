@@ -7,11 +7,11 @@ public:
       {
           int m = (l+h)/2; 
           if(A[m]==key) return m ;  
-          else if(A[l]<=A[m])
+          else if(A[l]<=A[m] )
           {
               if(A[l]<=key && key<=A[m])
               {
-                  h = m ; 
+                  h = m-1 ; 
               }
               else
               l= m+1  ; 
@@ -20,7 +20,7 @@ public:
           {
               if(A[m]<=key && key<=A[h])
               {
-                  l = m ; 
+                  l = m+1 ; 
               }
               else
              h = m-1 ; 
