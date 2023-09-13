@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void solve(vector<int>& nums , vector<int>&pre ,vector<vector<int>>&ans , int ind , int n )
+    void solve(vector<int>& nums , vector<int>pre ,vector<vector<int>>&ans , int ind , int n )
     {
         if(ind==n)
         {
