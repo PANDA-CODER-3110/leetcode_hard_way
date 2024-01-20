@@ -2,44 +2,41 @@ class Solution {
 public:
     long long MOD = 1e9+7 ; 
     int sumSubarrayMins(vector<int>& arr) {
-         int n = arr.size();
+      int N = arr.size() ; 
+         vector<int> left(N,-1);
+        vector<int> right(N,N);
         
-        vector<int> left(n,-1), right(n,n);
-        // for every i find the Next smaller element to left and right
-        
-        // Left
-        stack<int> st;
-        for(int i=0; i<n; i++)
-        {
-            while(st.size() && arr[i] < arr[st.top()]) st.pop();
-            if(st.size()) left[i] = i - st.top();
-            else left[i] = i+1;
-            st.push(i);
+        stack<int> s;
+        for(int i=0;i<N;i++){
+            while(!s.empty() && arr[s.top()]>=arr[i]){
+                s.pop();
+            }
+            if(!s.empty()){
+                left[i]=s.top();
+            }
+            s.push(i);
         }
         
-        while(st.size()) st.pop();
-        
-        // Right
-        for(int i=n-1; i>=0; i--)
-        {
-            while(st.size() && arr[i] <= arr[st.top()]) st.pop();
-            if(st.size()) right[i] = st.top() - i;
-            else right[i] = n - i;
-            st.push(i);
+        s=stack<int>();
+        for(int i=N-1;i>=0;i--){
+            while(!s.empty() && arr[s.top()]>arr[i]){
+                s.pop();
+            }
+            if(!s.empty()){
+                right[i]=s.top();
+            }
+            s.push(i);
         }
         
-        // for(int i=0; i<n; i++) cout << left[i] << " : " << right[i] << endl;
-        
-        // for each i, contribution is (Left * Right) * Element 
-        
-        int res = 0;
-        for(int i=0; i<n; i++)
-        {
-            long long prod = (left[i]*right[i])%MOD;
+        long long res=0;
+        for(int i=0;i<N;i++){
+            int L=i-left[i];
+            int R=right[i]-i;
+            long long prod = (L*R)%MOD ; 
             prod = (prod*arr[i])%MOD;
-            res = (res + prod)%MOD;
+            res=(res+prod)%MOD ;   // L+1 to R-1 is the range where arr[i] is minimum you see
+            res%=1000000007;
         }
-        
-        return res%MOD; 
+        return res;
     }
 };
