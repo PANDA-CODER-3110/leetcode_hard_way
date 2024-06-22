@@ -16,7 +16,19 @@ public:
         }
         return res;
     }
-    int numberOfSubarrays(vector<int>& A, int S) {
-        return atMost(A, S) - atMost(A, S - 1);
+    int numberOfSubarrays(vector<int>&nums, int k) {
+        // return atMost(A, S) ;
+        int n = nums.size();
+        vector<int> count(n+1, 0);
+        count[0] = 1;
+        int ans = 0, t = 0;
+        for(int v : nums){
+            t += v&1;
+            if(t-k >= 0){
+                ans += count[t-k];
+            }
+            count[t]++;
+        }
+        return ans;
     } 
 };
